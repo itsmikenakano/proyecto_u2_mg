@@ -1,5 +1,7 @@
 package com.uce.edu.demo.repository;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -7,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.demo.to.Estudiante;
+import com.uce.edu.demo.to.PersonaTo;
 
 @Repository
 public class EstudianteJdbcRepositoryImpl implements IEstudianteJdbcRepository {
@@ -42,5 +45,7 @@ public class EstudianteJdbcRepositoryImpl implements IEstudianteJdbcRepository {
 		LOG.info("Se elimino el estudiante con id: " + id);
 		this.jdbcTemplate.update("delete from estudiante where id=?", new Object[] { id });
 	}
+
+
 
 }

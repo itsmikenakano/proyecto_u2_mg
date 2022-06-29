@@ -6,10 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.uce.edu.demo.repository.modelo.Persona;
 import com.uce.edu.demo.service.IEstudianteJdbcService;
 import com.uce.edu.demo.service.IPersonaJdbcService;
+import com.uce.edu.demo.service.IPersonaJpaService;
 import com.uce.edu.demo.to.Estudiante;
-import com.uce.edu.demo.to.Persona;
+import com.uce.edu.demo.to.PersonaTo;
 
 @SpringBootApplication
 public class ProyectoU2MgApplication implements CommandLineRunner {
@@ -17,7 +19,10 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 	private static Logger LOG = Logger.getLogger(ProyectoU2MgApplication.class);
 
 	@Autowired
-	private IEstudianteJdbcService iEstudianteJdbcService;
+	private IPersonaJdbcService iPersonaJdbcService;
+	
+	@Autowired
+	private IPersonaJpaService iPersonaJpaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2MgApplication.class, args);
@@ -25,32 +30,27 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
 		
-		Estudiante estudiante = new Estudiante();
-		estudiante.setId(5);
-		estudiante.setNombre("Orlando");
-		estudiante.setApellido("Rodriguez");
-		estudiante.setGenero("Masculino");
-		estudiante.setEdad("25");
+		LOG.info("Dato con JPA: " + this.iPersonaJpaService.buscarPorId(3));
 		
-		//insertar
-		this.iEstudianteJdbcService.guardar(estudiante);
+		Persona per = new Persona();
+		per.setId(7);
+		per.setNombre("Victor");
+		per.setApellido("Alvear");
 		
-		Estudiante estudiante1 = new Estudiante();
-		estudiante1.setId(5);
-		estudiante1.setNombre("Cecilia");
-		estudiante1.setApellido("Morales");
-		estudiante1.setGenero("Femenino");
-		estudiante1.setEdad("23");
+		//GUARDAR
+		//this.iPersonaJpaService.guardar(per);
 		
-		//actualizar
-		this.iEstudianteJdbcService.actualizar(estudiante1);
+		Persona per1 = new Persona();
+		per1.setId(1);
+		per1.setNombre("Sofia");
+		per1.setApellido("Alvarez");
 		
-		//eliminar
-		this.iEstudianteJdbcService.eliminar(5);
+		//ACTUALIZACION
+		//this.iPersonaJpaService.actualizar(per1);
 		
-		LOG.info("Se consulto la persona: " + this.iEstudianteJdbcService.buscarPorId(3));
+		this.iPersonaJpaService.eliminar(2);
+		
 		
 	}
 
