@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.uce.edu.demo.to.Estudiante;
+import com.uce.edu.demo.to.EstudianteTo;
 import com.uce.edu.demo.to.PersonaTo;
 
 @Repository
@@ -20,20 +20,20 @@ public class EstudianteJdbcRepositoryImpl implements IEstudianteJdbcRepository {
 	private static Logger LOG = Logger.getLogger(EstudianteJdbcRepositoryImpl.class);
 
 	@Override
-	public void insertar(Estudiante e) {
+	public void insertar(EstudianteTo e) {
 		LOG.info("Se ha insertado en la base el estudiante: " + e);
 		this.jdbcTemplate.update("insert into estudiante (id, nombre, apellido, genero, edad) values (?,?,?,?,?)",
 				new Object[] { e.getId(), e.getNombre(), e.getApellido(), e.getGenero(), e.getEdad() });
 	}
 
 	@Override
-	public Estudiante buscarPorId(int id) {
+	public EstudianteTo buscarPorId(int id) {
 		return this.jdbcTemplate.queryForObject("select * from estudiante where id=?", new Object[] { id },
-				new BeanPropertyRowMapper<Estudiante>(Estudiante.class));
+				new BeanPropertyRowMapper<EstudianteTo>(EstudianteTo.class));
 	}
 
 	@Override
-	public void actualizar(Estudiante e) {
+	public void actualizar(EstudianteTo e) {
 		LOG.info("Se ha actualizado en la base el estudiante: " + e);
 		this.jdbcTemplate.update("update estudiante set nombre=?, apellido=?, edad=?, genero=? where id=?",
 				new Object[] { e.getNombre(), e.getApellido(), e.getEdad(), e.getGenero(), e.getId() });

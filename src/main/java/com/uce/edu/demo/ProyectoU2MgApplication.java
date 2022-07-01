@@ -6,23 +6,22 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.uce.edu.demo.repository.modelo.Estudiante;
 import com.uce.edu.demo.repository.modelo.Persona;
 import com.uce.edu.demo.service.IEstudianteJdbcService;
+import com.uce.edu.demo.service.IEstudianteJpaService;
 import com.uce.edu.demo.service.IPersonaJdbcService;
 import com.uce.edu.demo.service.IPersonaJpaService;
-import com.uce.edu.demo.to.Estudiante;
+import com.uce.edu.demo.to.EstudianteTo;
 import com.uce.edu.demo.to.PersonaTo;
 
 @SpringBootApplication
 public class ProyectoU2MgApplication implements CommandLineRunner {
 
 	private static Logger LOG = Logger.getLogger(ProyectoU2MgApplication.class);
-
-	@Autowired
-	private IPersonaJdbcService iPersonaJdbcService;
 	
 	@Autowired
-	private IPersonaJpaService iPersonaJpaService;
+	private IEstudianteJpaService iEstudianteJpaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2MgApplication.class, args);
@@ -31,25 +30,30 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		LOG.info("Dato con JPA: " + this.iPersonaJpaService.buscarPorId(3));
+		LOG.info("Dato con JPA: " + this.iEstudianteJpaService.buscarPorId(1));
 		
-		Persona per = new Persona();
-		per.setId(7);
-		per.setNombre("Victor");
-		per.setApellido("Alvear");
+		Estudiante e = new Estudiante();
+		e.setId(4);
+		e.setNombre("Luna");
+		e.setApellido("Zambrano");
+		e.setEdad("25");
+		e.setGenero("Femenino");
 		
 		//GUARDAR
-		//this.iPersonaJpaService.guardar(per);
+		this.iEstudianteJpaService.insertar(e);
 		
-		Persona per1 = new Persona();
-		per1.setId(1);
-		per1.setNombre("Sofia");
-		per1.setApellido("Alvarez");
+		Estudiante e1 = new Estudiante();
+		e1.setId(4);
+		e1.setNombre("Emma");
+		e1.setApellido("Ruiz");
+		e1.setEdad("21");
+		e1.setGenero("Femenino");
 		
 		//ACTUALIZACION
-		//this.iPersonaJpaService.actualizar(per1);
+		this.iEstudianteJpaService.actualizar(e1);
 		
-		this.iPersonaJpaService.eliminar(2);
+		//ELIMINAR
+		this.iEstudianteJpaService.eliminar(2);
 		
 		
 	}
