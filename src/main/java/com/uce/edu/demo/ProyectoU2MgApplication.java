@@ -1,5 +1,7 @@
 package com.uce.edu.demo;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,17 +25,19 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		
-		//BUSCAR
-		//LOG.info("Dato con JPA: " + this.iPersonaJpaService.buscarPorId(1));
-		
+
+		// BUSCAR
+		// LOG.info("Dato con JPA: " + this.iPersonaJpaService.buscarPorId(3));
+
 		Persona per = new Persona();
 //		per.setId(8);
-		per.setNombre("Madelyn");
-		per.setApellido("Ruiz");
+		per.setNombre("Joselyn");
+		per.setApellido("Morales");
+		per.setGenero("F");
+		per.setCedula("2376582392");
 
 		// GUARDAR
-		this.iPersonaJpaService.guardar(per);
+		// this.iPersonaJpaService.guardar(per);
 
 		Persona per1 = new Persona();
 		per1.setId(3);
@@ -41,10 +45,19 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 		per1.setApellido("Ochoa");
 
 		// ACTUALIZACION
-		//this.iPersonaJpaService.actualizar(per1);
+		// this.iPersonaJpaService.actualizar(per1);
 
 		// ELIMINAR
-		//this.iPersonaJpaService.eliminar(2);
+		// this.iPersonaJpaService.eliminar(2);
+
+		Persona p = this.iPersonaJpaService.buscarPorCedula("2376582392");
+		LOG.info("Consulta con JPQL-> Persona Encontrada: " + p);
+
+		List<Persona> listaPersona = this.iPersonaJpaService.buscarPorApellido("Ruiz");
+
+		for (Persona item : listaPersona) {
+			LOG.info("Persona: " + item);
+		}
 
 	}
 

@@ -1,5 +1,7 @@
 package com.uce.edu.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,16 @@ public class PersonaJpaServiceImpl implements IPersonaJpaService {
 	@Override
 	public Persona buscarPorId(Integer id) {
 		return this.iPersonaJpaRepository.buscarPorId(id);
+	}
+
+	@Override
+	public Persona buscarPorCedula(String cedula) {
+		return this.iPersonaJpaRepository.buscarPorCedula(cedula);
+	}
+
+	@Override
+	public List<Persona> buscarPorApellido(String apellido) {
+		return this.iPersonaJpaRepository.buscarPorApellido(apellido);
 	}
 
 }
