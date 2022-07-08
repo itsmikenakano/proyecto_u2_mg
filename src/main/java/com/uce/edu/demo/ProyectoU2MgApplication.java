@@ -31,10 +31,10 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 
 		Persona per = new Persona();
 //		per.setId(8);
-		per.setNombre("Joselyn");
-		per.setApellido("Morales");
+		per.setNombre("Lucia");
+		per.setApellido("Saldarriaga");
 		per.setGenero("F");
-		per.setCedula("2376582392");
+		per.setCedula("2389311392");
 
 		// GUARDAR
 		// this.iPersonaJpaService.guardar(per);
@@ -50,12 +50,27 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 		// ELIMINAR
 		// this.iPersonaJpaService.eliminar(2);
 
-		Persona p = this.iPersonaJpaService.buscarPorCedula("2376582392");
-		LOG.info("Consulta con JPQL-> Persona Encontrada: " + p);
+		// Persona p = this.iPersonaJpaService.buscarPorCedula("2376582392");
+		// LOG.info("Consulta con JPQL-> Persona Encontrada: " + p);
 
-		List<Persona> listaPersona = this.iPersonaJpaService.buscarPorApellido("Ruiz");
+		/*
+		 * List<Persona> listaPersona =
+		 * this.iPersonaJpaService.buscarPorApellido("Ruiz");
+		 * 
+		 * for (Persona item : listaPersona) { LOG.info("Persona: " + item); }
+		 */
 
-		for (Persona item : listaPersona) {
+		// BuscarPorNombre
+		List<Persona> listaPersona1 = this.iPersonaJpaService.buscarPorNombre("Madelyn");
+
+		for (Persona item : listaPersona1) {
+			LOG.info("Persona: " + item);
+		}
+
+		// BuscarPorNombre
+		List<Persona> listaPersona2 = this.iPersonaJpaService.buscarPorGenero("F");
+
+		for (Persona item : listaPersona2) {
 			LOG.info("Persona: " + item);
 		}
 
