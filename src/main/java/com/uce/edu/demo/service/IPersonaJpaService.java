@@ -13,13 +13,17 @@ public interface IPersonaJpaService {
 	public void eliminar(Integer id);
 
 	public Persona buscarPorId(Integer id);
-	
+
 	public Persona buscarPorCedula(String cedula);
-	
+
 	public List<Persona> buscarPorApellido(String apellido);
-	
+
 	public List<Persona> buscarPorNombre(String nombre);
 
 	public List<Persona> buscarPorGenero(String genero);
+
+	public int actualizarPorApellido(String genero, String apellido);
+
+	public int eliminarPorGenero(String genero);
 
 }
