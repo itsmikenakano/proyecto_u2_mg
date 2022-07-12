@@ -1,7 +1,6 @@
 package com.uce.edu.demo;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.prueba.repository.modelo.Propietario;
-import com.uce.edu.demo.prueba.repository.modelo.Vehiculo;
-import com.uce.edu.demo.prueba.service.IMatriculaGestorService;
-import com.uce.edu.demo.prueba.service.IPropietarioJpaService;
-import com.uce.edu.demo.prueba.service.IVehiculoJpaService;
+import com.uce.edu.demo.repository.modelo.Persona;
+import com.uce.edu.demo.service.IPersonaJpaService;
 
 @SpringBootApplication
 public class ProyectoU2MgApplication implements CommandLineRunner {
@@ -21,13 +17,7 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 	private static Logger LOG = Logger.getLogger(ProyectoU2MgApplication.class);
 
 	@Autowired
-	private IPropietarioJpaService iPropietarioJpaService;
-
-	@Autowired
-	private IVehiculoJpaService iVehiculoJpaService;
-	
-	@Autowired
-	private IMatriculaGestorService iMatriculaGestorService;
+	private IPersonaJpaService iPersonaJpaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2MgApplication.class, args);
@@ -36,32 +26,31 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Propietario p = new Propietario();
-		p.setNombre("Michael");
-		p.setApellido("Garcia");
-		p.setCedula("12345");
-		p.setFechaNacimiento(LocalDateTime.now());
+		Persona per1 = new Persona();
+		per1.setApellido("Rodriguez");
+		per1.setNombre("Karla");
+		per1.setCedula("12345");
+		per1.setGenero("F");
 
-		//this.iPropietarioJpaService.insertar(p);
+		//this.iPersonaJpaService.guardar(per1);
 
-//		LOG.info("Propietario Consultado: " +
-//		this.iPropietarioJpaService.consultarPorCedula("2300290992"));
+		// 1. TypedQuery
+		Persona perTyped = this.iPersonaJpaService.buscarPorCedulaTyped("123123123");
+		LOG.info("Persona Typed: " + perTyped);
 
-		//this.iPropietarioJpaService.eliminarPorCedula("2300290992");
+		// 2. TypedQuery
+		Persona perNamed = this.iPersonaJpaService.buscarPorCedulaNamed("123123123");
+		LOG.info("Persona Named: " + perNamed);
 
-		Vehiculo v = new Vehiculo();
-		v.setMarca("Toyota");
-		v.setPlaca("PYJ2022");
-		v.setPrecio(new BigDecimal(25000));
-		v.setTipo("Pesado");
-		
-		//this.iVehiculoJpaService.insertar(v);
-		
-		//LOG.info("Vehiculo Consultado: " + this.iVehiculoJpaService.buscarPorPlaca("PYC2022"));
-		
-		//this.iVehiculoJpaService.eliminarPorPlaca("PYJ2022");
-		
-		this.iMatriculaGestorService.generar(p.getCedula(), v.getPlaca());
+		// 3. TypedQuery
+		Persona perTypedNamed = this.iPersonaJpaService.buscarPorCedulaTypedNamed("123123123");
+		LOG.info("Persona TypedNamed: " + perTypedNamed);
+
+		// 4. Varios NamedQuery
+		List<Persona> listaPersona = this.iPersonaJpaService.buscarPorNombreApellido("Karla", "Rodriguez");
+		for (Persona item : listaPersona) {
+			LOG.info("Persona: " + item);
+		}
 
 	}
 
