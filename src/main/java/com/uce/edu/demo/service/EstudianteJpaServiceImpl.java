@@ -1,5 +1,7 @@
 package com.uce.edu.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,37 @@ public class EstudianteJpaServiceImpl implements IEstudianteJpaService {
 	public void eliminar(Integer id) {
 		this.iEstudianteJpaRepository.eliminar(id);
 
+	}
+
+	@Override
+	public List<Estudiante> buscarPorNombreGenero(String nombre, String genero) {
+		return this.iEstudianteJpaRepository.buscarPorNombreGenero(nombre, genero);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorEdadGenero(String edad, String genero) {
+		return this.iEstudianteJpaRepository.buscarPorEdadGenero(edad, genero);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorEdadMasculino(String edad) {
+		return this.iEstudianteJpaRepository.buscarPorEdadMasculino(edad);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorEdadFemenino(String edad) {
+		return this.iEstudianteJpaRepository.buscarPorEdadFemenino(edad);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorSemestreApellidoAsc(String semestre) {
+
+		return this.iEstudianteJpaRepository.buscarPorSemestreApellidoAsc(semestre);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorApellidoSemestreAsc(String apellido) {
+		return this.iEstudianteJpaRepository.buscarPorApellidoSemestreAsc(apellido);
 	}
 
 }

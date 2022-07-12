@@ -2,33 +2,46 @@ package com.uce.edu.demo.repository.modelo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "estudiante")
+@NamedQuery(name = "Estudiante.buscarPorEdadAscM", query = "SELECT e FROM Estudiante e WHERE e.edad = :datoEdad AND e.genero= 'M' ORDER BY e.edad ASC")
+@NamedQuery(name = "Estudiante.buscarPorEdadAscF", query = "SELECT e FROM Estudiante e WHERE e.edad = :datoEdad AND e.genero= 'F' ORDER BY e.edad ASC")
+@NamedQuery(name = "Estudiante.buscarPorSemestreApellidoAsc", query = "SELECT e FROM Estudiante e WHERE e.semestre= :datoSemestre ORDER BY e.apellido ASC")
+@NamedQuery(name = "Estudiante.buscarPorApellidoSemestreAsc", query = "SELECT e FROM Estudiante e WHERE e.apellido= :datoApellido ORDER BY e.semestre ASC")
 public class Estudiante {
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "estu_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estu_id_seq")
+	@SequenceGenerator(name = "estu_id_seq", sequenceName = "estu_id_seq", allocationSize = 1)
 	private Integer id;
 
-	@Column(name = "nombre")
+	@Column(name = "estu_nombre")
 	private String nombre;
 
-	@Column(name = "apellido")
+	@Column(name = "estu_apellido")
 	private String apellido;
 
-	@Column(name = "genero")
+	@Column(name = "estu_genero")
 	private String genero;
 
-	@Column(name = "edad")
+	@Column(name = "estu_edad")
 	private String edad;
+
+	@Column(name = "estu_semestre")
+	private String semestre;
 
 	@Override
 	public String toString() {
 		return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", genero=" + genero
-				+ ", edad=" + edad + "]";
+				+ ", edad=" + edad + ", semestre=" + semestre + "]";
 	}
 
 	// SET Y GET
@@ -70,6 +83,14 @@ public class Estudiante {
 
 	public void setEdad(String edad) {
 		this.edad = edad;
+	}
+
+	public String getSemestre() {
+		return semestre;
+	}
+
+	public void setSemestre(String semestre) {
+		this.semestre = semestre;
 	}
 
 }
