@@ -26,4 +26,11 @@ public interface IEstudianteJpaService {
 	
 	public List<Estudiante> buscarPorApellidoSemestreAsc(String apellido);
 
+	public List<Estudiante> buscarPorNombreEdad(String nombre, String edad);
+	
+	public List<Estudiante> buscarPorApellidoCedula(String apellido, String cedula);
+	
+	public List<Estudiante> buscarPorSemestreCedulaAsc(String semestre);
+	
+	public List<Estudiante> buscarPorGeneroNombreAsc(String genero);	
 }

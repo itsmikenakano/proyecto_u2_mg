@@ -11,7 +11,6 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.demo.repository.modelo.Estudiante;
-import com.uce.edu.demo.repository.modelo.Persona;
 
 @Repository
 @Transactional
@@ -55,7 +54,8 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 	@Override
 	public List<Estudiante> buscarPorEdadGenero(String edad, String genero) {
 		TypedQuery<Estudiante> miTypedQuery = this.entityManager.createQuery(
-				"SELECT e FROM Estudiante e WHERE e.edad = :datoEdad AND e.genero= : datoGenero ORDER BY e.edad ASC", Estudiante.class);
+				"SELECT e FROM Estudiante e WHERE e.edad = :datoEdad AND e.genero= : datoGenero ORDER BY e.edad ASC",
+				Estudiante.class);
 		miTypedQuery.setParameter("datoEdad", edad);
 		miTypedQuery.setParameter("datoGenero", genero);
 		return miTypedQuery.getResultList();
@@ -67,7 +67,7 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 		myQuery.setParameter("datoEdad", edad);
 		return myQuery.getResultList();
 	}
-	
+
 	@Override
 	public List<Estudiante> buscarPorEdadFemenino(String edad) {
 		Query myQuery = this.entityManager.createNamedQuery("Estudiante.buscarPorEdadAscF");
@@ -77,18 +77,57 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 
 	@Override
 	public List<Estudiante> buscarPorSemestreApellidoAsc(String semestre) {
-		TypedQuery<Estudiante> myQuery = this.entityManager.createNamedQuery("Estudiante.buscarPorSemestreApellidoAsc", Estudiante.class);
+		TypedQuery<Estudiante> myQuery = this.entityManager.createNamedQuery("Estudiante.buscarPorSemestreApellidoAsc",
+				Estudiante.class);
 		myQuery.setParameter("datoSemestre", semestre);
 		return myQuery.getResultList();
 	}
 
 	@Override
 	public List<Estudiante> buscarPorApellidoSemestreAsc(String apellido) {
-		TypedQuery<Estudiante> myQuery = this.entityManager.createNamedQuery("Estudiante.buscarPorApellidoSemestreAsc", Estudiante.class);
+		TypedQuery<Estudiante> myQuery = this.entityManager.createNamedQuery("Estudiante.buscarPorApellidoSemestreAsc",
+				Estudiante.class);
 		myQuery.setParameter("datoApellido", apellido);
 		return myQuery.getResultList();
 	}
-	
-	
+
+	@Override
+	public List<Estudiante> buscarPorNombreEdad(String nombre, String edad) {
+		// NativeQuery
+		Query myQuery = this.entityManager.createNativeQuery(
+				"SELECT * FROM estudiante WHERE estu_nombre = :datoNombre AND estu_edad = :datoEdad", Estudiante.class);
+		myQuery.setParameter("datoNombre", nombre);
+		myQuery.setParameter("datoEdad", edad);
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<Estudiante> buscarPorApellidoCedula(String apellido, String cedula) {
+		// NativeQuery
+		Query myQuery = this.entityManager.createNativeQuery(
+				"SELECT * FROM estudiante WHERE estu_apellido = :datoApellido AND estu_cedula LIKE :datoCedula",
+				Estudiante.class);
+		myQuery.setParameter("datoApellido", apellido);
+		myQuery.setParameter("datoCedula", "%"+cedula+"%");
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<Estudiante> buscarPorSemestreCedulaAsc(String semestre) {
+		// NamedNativeQuery
+		TypedQuery<Estudiante> myQuery = this.entityManager.createNamedQuery("Estudiante.buscarPorSemestreCedulaAsc",
+				Estudiante.class);
+		myQuery.setParameter("datoSemestre", semestre);
+		return myQuery.getResultList();
+	}
+
+	@Override
+	public List<Estudiante> buscarPorGeneroNombreAsc(String genero) {
+		// NamedNativeQuery
+		TypedQuery<Estudiante> myQuery = this.entityManager.createNamedQuery("Estudiante.buscarPorGeneroNombreAsc",
+				Estudiante.class);
+		myQuery.setParameter("datoGenero", genero);
+		return myQuery.getResultList();
+	}
 
 }

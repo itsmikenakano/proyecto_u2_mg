@@ -68,4 +68,24 @@ public class EstudianteJpaServiceImpl implements IEstudianteJpaService {
 		return this.iEstudianteJpaRepository.buscarPorApellidoSemestreAsc(apellido);
 	}
 
+	@Override
+	public List<Estudiante> buscarPorNombreEdad(String nombre, String edad) {
+		return this.iEstudianteJpaRepository.buscarPorNombreEdad(nombre, edad);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorApellidoCedula(String apellido, String cedula) {
+		return this.iEstudianteJpaRepository.buscarPorApellidoCedula(apellido, cedula);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorSemestreCedulaAsc(String semestre) {
+		return this.iEstudianteJpaRepository.buscarPorSemestreCedulaAsc(semestre);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorGeneroNombreAsc(String genero) {
+		return this.iEstudianteJpaRepository.buscarPorGeneroNombreAsc(genero);
+	}
+
 }
