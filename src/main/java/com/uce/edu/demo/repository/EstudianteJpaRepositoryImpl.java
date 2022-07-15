@@ -91,6 +91,7 @@ public class EstudianteJpaRepositoryImpl implements IEstudianteJpaRepository {
 		return myQuery.getResultList();
 	}
 
+
 	@Override
 	public List<Estudiante> buscarPorNombreEdad(String nombre, String edad) {
 		// NativeQuery

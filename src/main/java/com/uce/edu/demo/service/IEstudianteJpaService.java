@@ -33,4 +33,5 @@ public interface IEstudianteJpaService {
 	public List<Estudiante> buscarPorSemestreCedulaAsc(String semestre);
 	
 	public List<Estudiante> buscarPorGeneroNombreAsc(String genero);	
+	
 }
