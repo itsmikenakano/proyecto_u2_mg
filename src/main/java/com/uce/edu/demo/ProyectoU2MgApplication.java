@@ -63,7 +63,6 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 		}
 		
 		
-
 	}
 
 }
