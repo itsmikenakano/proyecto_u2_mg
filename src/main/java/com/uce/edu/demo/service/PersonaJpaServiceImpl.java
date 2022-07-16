@@ -65,6 +65,16 @@ public class PersonaJpaServiceImpl implements IPersonaJpaService {
 	public Persona buscarPorCedulaNamedNative(String cedula) {
 		return this.iPersonaJpaRepository.buscarPorCedulaNamedNative(cedula);
 	}
+	
+	@Override
+	public Persona buscarPorCedulaCriteriaApi(String cedula) {
+		return this.iPersonaJpaRepository.buscarPorCedulaCriteriaApi(cedula);
+	}
+	
+	@Override
+	public Persona buscarDinamicamente(String nombre, String apellido, String genero) {
+		return this.iPersonaJpaRepository.buscarDinamicamente(nombre, apellido, genero);
+	}
 
 	@Override
 	public List<Persona> buscarPorApellido(String apellido) {
@@ -96,5 +106,7 @@ public class PersonaJpaServiceImpl implements IPersonaJpaService {
 	public int eliminarPorGenero(String genero) {
 		return this.iPersonaJpaRepository.eliminarPorGenero(genero);
 	}
+
+
 
 }
