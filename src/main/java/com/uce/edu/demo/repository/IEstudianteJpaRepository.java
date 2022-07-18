@@ -32,7 +32,11 @@ public interface IEstudianteJpaRepository {
 	
 	public List<Estudiante> buscarPorSemestreCedulaAsc(String semestre);
 	
-	public List<Estudiante> buscarPorGeneroNombreAsc(String genero);	
+	public List<Estudiante> buscarPorGeneroNombreAsc(String genero);
+	
+	public List<Estudiante> buscarPorSemestreDinamico(String semestre, String apellido, String genero);
+	
+	public List<Estudiante> buscarPorNombreDinamico(String nombre, String letra, String edad);
 	
 	
 	
