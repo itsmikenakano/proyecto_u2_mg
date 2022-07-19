@@ -205,7 +205,7 @@ public class PersonaJpaRepositoryImpl implements IPersonaJpaRepository {
 		// SELECT p.genero, COUNT(p.genero) FROM Persona p GROUP BY p.genero
 		// SELECT NEW com.uce.edu.demo.repository.modelo.PersonaContadorGenero(p.genero,COUNT(p.genero)) FROM Persona p GROUP BY p.genero
 		TypedQuery<PersonaContadorGenero> myQuery = this.entityManager.createQuery(
-				"SELECT NEW com.uce.edu.demo.repository.modelo.PersonaContadorGenero(e.genero, COUNT(e.genero)) FROM Estudiante e GROUP BY e.genero",
+				"SELECT NEW com.uce.edu.demo.repository.modelo.PersonaContadorGenero(p.genero, COUNT(p.genero)) FROM Persona p GROUP BY p.genero",
 				PersonaContadorGenero.class);
 		return myQuery.getResultList();
 	}
