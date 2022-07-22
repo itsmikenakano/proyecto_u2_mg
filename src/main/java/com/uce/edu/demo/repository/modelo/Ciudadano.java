@@ -26,7 +26,8 @@ public class Ciudadano {
 	@Column(name = "ciud_apellido")
 	private String apellido;
 
-	@OneToOne(mappedBy = "ciudadano", cascade = CascadeType.ALL) // ciudadano es el nombre de la variable de tipo Ciudadano en la clase empleado
+	@OneToOne(mappedBy = "ciudadano", cascade = CascadeType.ALL) // ciudadano es el nombre de la variable de tipo
+																	// Ciudadano en la clase empleado
 	private Empleado empleado;
 
 	@Override

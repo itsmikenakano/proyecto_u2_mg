@@ -1,7 +1,6 @@
 package com.uce.edu.demo;
 
-import java.math.BigDecimal;
-import java.util.List;
+import java.time.LocalDateTime;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +8,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.Ciudadano;
-import com.uce.edu.demo.repository.modelo.Empleado;
-import com.uce.edu.demo.repository.modelo.EstudianteContadorSemestre;
-import com.uce.edu.demo.repository.modelo.EstudianteSencillo;
-import com.uce.edu.demo.service.ICiudadanoJpaService;
-import com.uce.edu.demo.service.IEstudianteJpaService;
+import com.uce.edu.demo.repository.modelo.CiudadanoP;
+import com.uce.edu.demo.repository.modelo.Pasaporte;
+import com.uce.edu.demo.service.ICiudadanopJpaService;
 
 @SpringBootApplication
 public class ProyectoU2MgApplication implements CommandLineRunner {
@@ -22,10 +18,8 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 	private static Logger LOG = Logger.getLogger(ProyectoU2MgApplication.class);
 
 	@Autowired
-	private IEstudianteJpaService iEstudianteJpaService;
+	private ICiudadanopJpaService iCiudadanopJpaService;
 	
-	@Autowired
-	private ICiudadanoJpaService iCiudadanoJpaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2MgApplication.class, args);
@@ -34,41 +28,35 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		List<EstudianteContadorSemestre> listaEstudiante = this.iEstudianteJpaService.buscarContadorPorSemestre();
-
-		for (EstudianteContadorSemestre e : listaEstudiante) {
-			LOG.info("EstudianteContadorSemestre: " + e);
-		}
-
-		List<EstudianteSencillo> miListaEstudiante = this.iEstudianteJpaService.buscarEstudianteSencillo("g");
-
-		for (EstudianteSencillo item : miListaEstudiante) {
-			LOG.info("EstudianteSencillo: " + item);
-		}
+		CiudadanoP c = new CiudadanoP();
+		c.setNombre("Lorena");
+		c.setApellido("Moreno");
+		c.setFechaNacimiento(LocalDateTime.now());
+		c.setCedula("12312");
 		
-		Ciudadano ciu1 = new Ciudadano();
-		ciu1.setNombre("Joss");
-		ciu1.setApellido("Riera");
+		Pasaporte p = new Pasaporte();
+		p.setNumero("12312");
+		p.setFechaCaducidad(LocalDateTime.now());
+		p.setFechaEmision(LocalDateTime.now());
+		p.setCiudadanop(c);
 		
-		Empleado empl1 = new Empleado();
-		empl1.setCodigoIess("123");
-		empl1.setSalario(new BigDecimal(200));
-		empl1.setCiudadano(ciu1);
+		c.setPasaporte(p);
 		
-		ciu1.setEmpleado(empl1);
-		this.iCiudadanoJpaService.insertar(ciu1);
+		this.iCiudadanopJpaService.insertar(c);
 		
-		Ciudadano ciu2= new Ciudadano();
-		ciu2.setNombre("Joss");
-		ciu2.setApellido("Riera");
+		LOG.info("Se ha buscado: " + this.iCiudadanopJpaService.buscarPorId(3));
 		
-		Empleado empl2 = new Empleado();
-		empl2.setCodigoIess("123");
-		empl2.setSalario(new BigDecimal(200));
-		empl2.setCiudadano(ciu1);
+		c.setApellido("Jimenez");
+		c.setCedula("172832");
 		
-		ciu2.setEmpleado(empl2);
-		//this.empleadoService.insertar(empl2)
+		this.iCiudadanopJpaService.actualizar(c);
+		
+		this.iCiudadanopJpaService.eliminar(2);
+		
+		
+		
+		
+		
 
 	}
 
