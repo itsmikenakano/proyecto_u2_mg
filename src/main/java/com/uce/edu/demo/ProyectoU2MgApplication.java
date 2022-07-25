@@ -1,15 +1,17 @@
 package com.uce.edu.demo;
 
+import java.time.LocalDateTime;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.onetomany.Habitacion;
-import com.uce.edu.demo.repository.modelo.onetomany.Hotel;
-import com.uce.edu.demo.service.IHabitacionService;
-import com.uce.edu.demo.service.IHotelService;
+import com.uce.edu.demo.repository.modelo.onetomany.Album;
+import com.uce.edu.demo.repository.modelo.onetomany.Artista;
+import com.uce.edu.demo.service.IAlbumService;
+import com.uce.edu.demo.service.IArtistaService;
 
 @SpringBootApplication
 public class ProyectoU2MgApplication implements CommandLineRunner {
@@ -17,10 +19,10 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 	private static Logger LOG = Logger.getLogger(ProyectoU2MgApplication.class);
 
 	@Autowired
-	private IHotelService iHotelService;
+	private IArtistaService iArtistaService;
 	
 	@Autowired
-	private IHabitacionService iHabitacionService;
+	private IAlbumService iAlbumService;
 
 
 	public static void main(String[] args) {
@@ -30,32 +32,32 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		/*
-		Hotel hotel1 = new Hotel();
-		hotel1.setNombre("Hilton Colon GUY");
-		hotel1.setDireccion("Malecon");
+		//insertar
+		Artista art=new Artista();
+		art.setNombre("Elvis Crespo");
+		art.setEdad("50");
 		
-		this.iHotelService.insertar(hotel1);
-		*/
+		this.iArtistaService.insertar(art);
 		
-		//Buscar numero
-		Hotel hote= new Hotel();
-		hote.setId(1);
+		Artista artId = new Artista();
+		artId.setId(1);
 		
-		Habitacion habi1 = new Habitacion();
-		habi1.setNumero("A2334");
-		habi1.setPiso("10");
-		habi1.setTipo("Familiar");
-		habi1.setHotel(hote);
+		Album album= new Album();
+		album.setNombre("Un verano sin ti");
+		album.setGenero("Reggaeton");
+		album.setFechaLanzamiento(LocalDateTime.now());
+		album.setArtista(artId);
+		this.iAlbumService.insertar(album);
 		
-		Habitacion habi2 = new Habitacion();
-		habi2.setNumero("1231223");
-		habi2.setPiso("1");
-		habi2.setTipo("Matrimonial");
-		habi2.setHotel(hote);
+		//consultar
+		LOG.info("Artista: " + this.iArtistaService.consultar(1));
 		
-		this.iHabitacionService.insertar(habi1);
-		this.iHabitacionService.insertar(habi2);
+		//actualizar
+		art.setEdad("28");
+		this.iArtistaService.actualizar(art);
+		
+		//eliminar
+		this.iArtistaService.eliminar(2);
 	}
 
 }
