@@ -1,6 +1,7 @@
 package com.uce.edu.demo;
 
-import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.onetomany.Album;
-import com.uce.edu.demo.repository.modelo.onetomany.Artista;
-import com.uce.edu.demo.service.IAlbumService;
+import com.uce.edu.demo.repository.modelo.manytomany.Autor;
+import com.uce.edu.demo.repository.modelo.manytomany.Libro;
 import com.uce.edu.demo.service.IArtistaService;
+import com.uce.edu.demo.service.ILibroService;
 
 @SpringBootApplication
 public class ProyectoU2MgApplication implements CommandLineRunner {
@@ -19,10 +20,7 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 	private static Logger LOG = Logger.getLogger(ProyectoU2MgApplication.class);
 
 	@Autowired
-	private IArtistaService iArtistaService;
-	
-	@Autowired
-	private IAlbumService iAlbumService;
+	private ILibroService iLibroService;
 
 
 	public static void main(String[] args) {
@@ -32,32 +30,25 @@ public class ProyectoU2MgApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		//insertar
-		Artista art=new Artista();
-		art.setNombre("Elvis Crespo");
-		art.setEdad("50");
+		Libro libro = new Libro();
+		libro.setTitulo("JPA5");
+		libro.setCantidadPaginas(40);
 		
-		this.iArtistaService.insertar(art);
+		Autor autor1 = new Autor();
+		autor1.setNombre("Adam Blen2");
 		
-		Artista artId = new Artista();
-		artId.setId(1);
+		Autor autor2 = new Autor();
+		autor2.setNombre("Adam Blen3");
 		
-		Album album= new Album();
-		album.setNombre("Un verano sin ti");
-		album.setGenero("Reggaeton");
-		album.setFechaLanzamiento(LocalDateTime.now());
-		album.setArtista(artId);
-		this.iAlbumService.insertar(album);
+		Set<Autor> autores = new HashSet<>();
+		autores.add(autor1);
+		autores.add(autor2);
 		
-		//consultar
-		LOG.info("Artista: " + this.iArtistaService.consultar(1));
+		libro.setAutores(autores);
 		
-		//actualizar
-		art.setEdad("28");
-		this.iArtistaService.actualizar(art);
+		this.iLibroService.insertar(libro);
 		
-		//eliminar
-		this.iArtistaService.eliminar(2);
+		
 	}
 
 }
