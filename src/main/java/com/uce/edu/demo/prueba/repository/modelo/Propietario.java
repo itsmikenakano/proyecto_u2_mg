@@ -1,12 +1,15 @@
 package com.uce.edu.demo.prueba.repository.modelo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -31,6 +34,9 @@ public class Propietario {
 
 	@Column(name = "prop_fecha_nacimiento")
 	private LocalDateTime fechaNacimiento;
+	
+	@OneToMany(mappedBy = "propietario")
+	private List<Matricula> matriculas;
 
 	@Override
 	public String toString() {
